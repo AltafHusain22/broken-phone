@@ -8,6 +8,7 @@ const loadPhones = async(searchText, dataLimit) =>{
 }
 
 const displayPhones = (phones, dataLimit) =>{
+
     const phonesContainer = document.getElementById('phones-container');
     
     // display 10 phones only 
@@ -32,13 +33,19 @@ const displayPhones = (phones, dataLimit) =>{
             </div>
         </div>
         `;
-        phonesContainer.appendChild(phoneDiv);   
+        
+        phonesContainer.appendChild(phoneDiv); 
+       
+        
     })        
         
     showAll.classList.remove('d-none');
+    toggleSpinner(false); 
+   
 }
 else{
     showAll.classList.add('d-none');
+   
     }
     
 
@@ -51,10 +58,7 @@ else{
         noPhone.classList.add('d-none');
     }
 
-
-            
-    // stop spinner or loader
-    toggleSpinner(true);
+    phonesContainer =""
     
 }
 
@@ -69,25 +73,25 @@ document.getElementById('btn-search').addEventListener('click', function(){
 // search input field enter key handler
 document.getElementById('search-field').addEventListener('keyup', function (e) {
     if (e.key === 'Enter') {
-        toggleSpinner(true)
+     // start spinner or loader
+       toggleSpinner(true);
         processSearch(6);
     }
 });
 
 
 const processSearch = (dataLimit) =>{
-    toggleSpinner(true);
     let searchField = document.getElementById('search-field');
     let searchText = searchField.value;
     loadPhones(searchText, dataLimit);
-    searchText = ""
+    searchField = ""
 
 }
 
 
 const toggleSpinner = isLoading => {
     const loaderSection = document.getElementById('loader');
-    if(!isLoading){
+    if(isLoading){
         loaderSection.classList.remove('d-none')
     }
     else{
